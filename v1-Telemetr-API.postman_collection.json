@@ -1,0 +1,371 @@
+{
+	"info": {
+		"name": "v1: Telemetr API",
+		"description": "# Telemetr API\n\nTelemetr - Аналитика Телеграм-каналов.\n\n**Ссылки:**\n\n- [Регистрация в сервисе](https://telemetr.me/register?utm_source=user_api_docs&utm_medium=postman)\n    \n- [Документация к API](https://api.telemetr.me/doc?utm_source=user_api_docs&utm_medium=postman)\n    \n- [Инструкция Telemetr](https://help.telemetr.me/?utm_source=user_api_docs&utm_medium=postman)\n    \n- [Чат для пользователей API](https://t.me/telemetrAPI_chat)\n    \n- [Чат Telemetr](https://t.me/telemetr_chat)\n    \n- [Канал Telemetr](https://t.me/telemetr_me)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Каналы",
+			"item": [
+				{
+					"name": "Получить данные канала",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/channels/get",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels",
+								"get"
+							],
+							"query": [
+								{
+									"key": "channelId",
+									"value": "{{channelId}}",
+									"disabled": false
+								}
+							]
+						},
+						"description": "https://api.telemetr.me/doc#tag/Kanaly/operation/%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%B0"
+					},
+					"response": []
+				},
+				{
+					"name": "Добавить канал в базу Telemetr.me",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"channelId\": \"{{channelId}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/channels/add",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels",
+								"add"
+							]
+						},
+						"description": "https://api.telemetr.me/doc#tag/Kanaly/operation/%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%20%D0%B2%20%D0%B1%D0%B0%D0%B7%D1%83%20Telemetr.me"
+					},
+					"response": []
+				}
+			],
+			"description": "https://api.telemetr.me/doc#tag/Kanaly"
+		},
+		{
+			"name": "Публикации канала",
+			"item": [
+				{
+					"name": "Получить публикации канала",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/channels/posts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "channelId",
+									"value": "{{channelId}}",
+									"disabled": false
+								},
+								{
+									"key": "offset",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "hideForwards",
+									"value": "<boolean>",
+									"disabled": true
+								},
+								{
+									"key": "hideDeleted",
+									"value": "<boolean>",
+									"disabled": true
+								}
+							]
+						},
+						"description": "https://api.telemetr.me/doc#tag/Publikacii-kanala/operation/%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%B0"
+					},
+					"response": []
+				},
+				{
+					"name": "Получить указанную публикацию канала",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/channels/posts/get",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels",
+								"posts",
+								"get"
+							],
+							"query": [
+								{
+									"key": "channelId",
+									"value": "{{channelId}}",
+									"disabled": false
+								},
+								{
+									"key": "postId",
+									"value": "{{postId}}",
+									"disabled": false
+								}
+							]
+						},
+						"description": "https://api.telemetr.me/doc#tag/Publikacii-kanala/operation/%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%D1%83%D0%BA%D0%B0%D0%B7%D0%B0%D0%BD%D0%BD%D1%83%D1%8E%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8E%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%B0"
+					},
+					"response": []
+				}
+			],
+			"description": "https://api.telemetr.me/doc#tag/Publikacii-kanala"
+		},
+		{
+			"name": "Публикации",
+			"item": [
+				{
+					"name": "Поиск по публикациям",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/channels/posts/search",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels",
+								"posts",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "{{postsSearchQuery}}",
+									"disabled": false
+								},
+								{
+									"key": "limit",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "peerType",
+									"value": "all",
+									"description": "channel, all",
+									"disabled": true
+								},
+								{
+									"key": "startDate",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "endDate",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "hideForwards",
+									"value": "<boolean>",
+									"disabled": true
+								},
+								{
+									"key": "hideDeleted",
+									"value": "<boolean>",
+									"disabled": true
+								},
+								{
+									"key": "strongSearch",
+									"value": "<boolean>",
+									"disabled": true
+								},
+								{
+									"key": "minusWords",
+									"value": "{{postsSearchMinusWords}}",
+									"disabled": true
+								}
+							]
+						},
+						"description": "https://api.telemetr.me/doc#tag/Publikacii/operation/%D0%9F%D0%BE%D0%B8%D1%81%D0%BA%20%D0%BF%D0%BE%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F%D0%BC"
+					},
+					"response": []
+				}
+			],
+			"description": "https://api.telemetr.me/doc#tag/Publikacii"
+		},
+		{
+			"name": "Статистика каналов",
+			"item": [
+				{
+					"name": "Получить статистику канала",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/channels/stat",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels",
+								"stat"
+							],
+							"query": [
+								{
+									"key": "channelId",
+									"value": "{{channelId}}",
+									"disabled": false
+								}
+							]
+						},
+						"description": "https://api.telemetr.me/doc#tag/Statistika-kanalov/operation/%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D1%83%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%B0"
+					},
+					"response": []
+				},
+				{
+					"name": "Получить данные о количестве подписчиков канала",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/channels/subscribers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels",
+								"subscribers"
+							],
+							"query": [
+								{
+									"key": "channelId",
+									"value": "{{channelId}}",
+									"disabled": false
+								},
+								{
+									"key": "group",
+									"value": "day",
+									"description": "hour, day, week, month",
+									"disabled": true
+								},
+								{
+									"key": "startDate",
+									"value": "<string>",
+									"disabled": true
+								},
+								{
+									"key": "endDate",
+									"value": "<string>",
+									"disabled": true
+								}
+							]
+						},
+						"description": "https://api.telemetr.me/doc#tag/Statistika-kanalov/operation/%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BB%D0%B8%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%B5%20%D0%BF%D0%BE%D0%B4%D0%BF%D0%B8%D1%81%D1%87%D0%B8%D0%BA%D0%BE%D0%B2%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%B0"
+					},
+					"response": []
+				}
+			],
+			"description": "https://api.telemetr.me/doc#tag/Statistika-kanalov"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearerToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://api.telemetr.me"
+		},
+		{
+			"key": "bearerToken",
+			"value": "replace-me-with-actual-token"
+		},
+		{
+			"key": "channelId",
+			"value": "telemetr_me"
+		},
+		{
+			"key": "postId",
+			"value": 1167
+		},
+		{
+			"key": "postsSearchQuery",
+			"value": "ТМпятничное"
+		},
+		{
+			"key": "postsSearchMinusWords",
+			"value": "факт"
+		}
+	]
+}
