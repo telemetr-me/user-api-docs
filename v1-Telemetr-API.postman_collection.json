@@ -70,6 +70,118 @@
 						"description": "https://api.telemetr.me/doc#tag/Kanaly/operation/%D0%94%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%20%D0%B2%20%D0%B1%D0%B0%D0%B7%D1%83%20Telemetr.me"
 					},
 					"response": []
+				},
+				{
+					"name": "Поиск каналов",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/channels/search",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"channels",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "{{channelSearchQuery}}",
+									"disabled": false
+								},
+								{
+									"key": "sort",
+									"value": "subscribers_desc",
+									"description": "subscribers_desc, subscribers_asc, er_desc, views_per_day_desc, mentions_desc, advertising_price_desc и др.",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "20",
+									"description": "1–20, по умолчанию 20",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "subscribers_from",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "subscribers_to",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "language[]",
+									"value": "ru",
+									"disabled": true
+								},
+								{
+									"key": "is_verified",
+									"value": "<boolean>",
+									"disabled": true
+								},
+								{
+									"key": "category[]",
+									"value": "<integer>",
+									"disabled": true
+								},
+								{
+									"key": "compilation[]",
+									"value": "<integer>",
+									"disabled": true
+								}
+							]
+						},
+						"description": "https://api.telemetr.me/doc#tag/Kanaly/operation/%D0%9F%D0%BE%D0%B8%D1%81%D0%BA%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2"
+					},
+					"response": []
+				},
+				{
+					"name": "Похожие каналы",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/channels/similar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"channels",
+								"similar"
+							],
+							"query": [
+								{
+									"key": "channel",
+									"value": "{{channelId}}",
+									"description": "username или Telegram ID канала",
+									"disabled": false
+								}
+							]
+						},
+						"description": "https://api.telemetr.me/doc#tag/Kanaly/operation/%D0%9F%D0%BE%D1%85%D0%BE%D0%B6%D0%B8%D0%B5%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D1%8B"
+					},
+					"response": []
 				}
 			],
 			"description": "https://api.telemetr.me/doc#tag/Kanaly"
@@ -330,6 +442,125 @@
 				}
 			],
 			"description": "https://api.telemetr.me/doc#tag/Statistika-kanalov"
+		},
+		{
+			"name": "Категории",
+			"item": [
+				{
+					"name": "Список категорий каналов",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/channels/categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"channels",
+								"categories"
+							]
+						},
+						"description": "https://api.telemetr.me/doc#tag/Kategorii/operation/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA%20%D0%BA%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D0%B9%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Подборки",
+			"item": [
+				{
+					"name": "Список подборок каналов",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/channels/compilations",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"channels",
+								"compilations"
+							]
+						},
+						"description": "https://api.telemetr.me/doc#tag/Podborki/operation/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA%20%D0%BF%D0%BE%D0%B4%D0%B1%D0%BE%D1%80%D0%BE%D0%BA%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Языки",
+			"item": [
+				{
+					"name": "Список языков каналов",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/languages/channels",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"languages",
+								"channels"
+							]
+						},
+						"description": "https://api.telemetr.me/doc#tag/Yazyki/operation/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA%20%D1%8F%D0%B7%D1%8B%D0%BA%D0%BE%D0%B2%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Лимиты",
+			"item": [
+				{
+					"name": "Остаток лимитов",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/limits",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"limits"
+							]
+						},
+						"description": "https://api.telemetr.me/doc#tag/Limity/operation/%D0%9E%D1%81%D1%82%D0%B0%D1%82%D0%BE%D0%BA%20%D0%BB%D0%B8%D0%BC%D0%B8%D1%82%D0%BE%D0%B2"
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -366,6 +597,11 @@
 		{
 			"key": "postsSearchMinusWords",
 			"value": "факт"
+		},
+		{
+			"key": "channelSearchQuery",
+			"value": "новости",
+			"type": "string"
 		}
 	]
 }

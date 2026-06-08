@@ -67,3 +67,45 @@ GET {{baseUrl}}/channels/subscribers?
     &endDate=2025-05-30 23:59:59
 Authorization: Bearer {{bearerToken}}
 Accept: application/json
+
+### Поиск каналов
+# https://api.telemetr.me/doc#tag/Kanaly/operation/%D0%9F%D0%BE%D0%B8%D1%81%D0%BA%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2
+GET {{baseUrl}}/v1/channels/search?
+    query={{channelSearchQuery}}
+    &sort=subscribers_desc
+    &limit=20
+    &subscribers_from=10000
+    &language[]=ru
+Authorization: Bearer {{bearerToken}}
+Accept: application/json
+
+### Похожие каналы
+# https://api.telemetr.me/doc#tag/Kanaly/operation/%D0%9F%D0%BE%D1%85%D0%BE%D0%B6%D0%B8%D0%B5%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D1%8B
+GET {{baseUrl}}/v1/channels/similar?
+    channel={{channelId}}
+Authorization: Bearer {{bearerToken}}
+Accept: application/json
+
+### Список категорий каналов
+# https://api.telemetr.me/doc#tag/Kategorii/operation/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA%20%D0%BA%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D0%B9%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2
+GET {{baseUrl}}/v1/channels/categories
+Authorization: Bearer {{bearerToken}}
+Accept: application/json
+
+### Список подборок каналов
+# https://api.telemetr.me/doc#tag/Podborki/operation/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA%20%D0%BF%D0%BE%D0%B4%D0%B1%D0%BE%D1%80%D0%BE%D0%BA%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2
+GET {{baseUrl}}/v1/channels/compilations
+Authorization: Bearer {{bearerToken}}
+Accept: application/json
+
+### Список языков каналов
+# https://api.telemetr.me/doc#tag/Yazyki/operation/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA%20%D1%8F%D0%B7%D1%8B%D0%BA%D0%BE%D0%B2%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2
+GET {{baseUrl}}/v1/languages/channels
+Authorization: Bearer {{bearerToken}}
+Accept: application/json
+
+### Остаток лимитов
+# https://api.telemetr.me/doc#tag/Limity/operation/%D0%9E%D1%81%D1%82%D0%B0%D1%82%D0%BE%D0%BA%20%D0%BB%D0%B8%D0%BC%D0%B8%D1%82%D0%BE%D0%B2
+GET {{baseUrl}}/v1/limits
+Authorization: Bearer {{bearerToken}}
+Accept: application/json
