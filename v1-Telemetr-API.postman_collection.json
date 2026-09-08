@@ -127,6 +127,7 @@
 								{
 									"key": "language[]",
 									"value": "ru",
+									"description": "код языка из GET /v1/languages/channels (не ISO 639-1: украинский здесь ua). Параметр можно повторять: language[]=ru&language[]=ua",
 									"disabled": true
 								},
 								{
@@ -136,12 +137,14 @@
 								},
 								{
 									"key": "category[]",
-									"value": "<integer>",
+									"value": "marketing",
+									"description": "slug категории из GET /v1/channels/categories, а не её числовой id. Параметр можно повторять: category[]=ai&category[]=marketing",
 									"disabled": true
 								},
 								{
 									"key": "compilation[]",
-									"value": "<integer>",
+									"value": "smm",
+									"description": "slug подборки из GET /v1/channels/compilations, а не её числовой id. Параметр можно повторять: compilation[]=smm&compilation[]=seo",
 									"disabled": true
 								}
 							]
