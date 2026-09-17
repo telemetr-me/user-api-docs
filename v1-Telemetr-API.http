@@ -37,17 +37,28 @@ Accept: application/json
 
 ### Поиск по публикациям
 # https://api.telemetr.me/doc#tag/Publikacii
+# Даты не заданы намеренно: без них ищется по последним 30 суткам (с 17.09.2026; раньше — только
+# за сегодня). Окно одного запроса — не шире 31 дня, startDate — не глубже глубины истории пакета.
+# На пробном доступе поиск идёт только по публикациям @telemetr_me — слово взято из его постов.
 GET {{baseUrl}}/channels/posts/search?
     query={{postsSearchQuery}}
-    &limit=1
+    &limit=5
     &offset=0
-    &peerType=all
-    &startDate=2025-01-01 00:00:00
-    &endDate=2025-03-31 23:59:59
-    &hideForwards=0
-    &hideDeleted=0
+    &peerType=channel
+    &hideForwards=1
+    &hideDeleted=1
     &strongSearch=0
     &minusWords={{postsSearchMinusWords}}
+Authorization: Bearer {{bearerToken}}
+Accept: application/json
+
+### Поиск по публикациям за конкретный отрезок (не шире 31 дня)
+# https://api.telemetr.me/doc#tag/Publikacii
+GET {{baseUrl}}/channels/posts/search?
+    query={{postsSearchQuery}}
+    &limit=5
+    &startDate=2026-08-01 00:00:00
+    &endDate=2026-08-31 23:59:59
 Authorization: Bearer {{bearerToken}}
 Accept: application/json
 
@@ -60,11 +71,20 @@ Accept: application/json
 
 ### Получить данные о количестве подписчиков канала
 # https://api.telemetr.me/doc#tag/Statistika-kanalov/operation/%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%BE%20%D0%BA%D0%BE%D0%BB%D0%B8%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%B5%20%D0%BF%D0%BE%D0%B4%D0%BF%D0%B8%D1%81%D1%87%D0%B8%D0%BA%D0%BE%D0%B2%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%B0
+# Без дат метод берёт самое широкое окно своей группировки, считая назад от endDate (по умолчанию —
+# текущий момент): 7 дней по часам, месяц по дням, год по неделям, три года по месяцам (с 17.09.2026).
 GET {{baseUrl}}/channels/subscribers?
     channelId={{channelId}}
     &group=month
-    &startDate=2025-01-01 00:00:00
-    &endDate=2025-05-30 23:59:59
+Authorization: Bearer {{bearerToken}}
+Accept: application/json
+
+### Подписчики канала за конкретный отрезок
+GET {{baseUrl}}/channels/subscribers?
+    channelId={{channelId}}
+    &group=day
+    &startDate=2026-08-01 00:00:00
+    &endDate=2026-08-31 23:59:59
 Authorization: Bearer {{bearerToken}}
 Accept: application/json
 
