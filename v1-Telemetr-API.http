@@ -115,3 +115,113 @@ Accept: application/json
 GET {{baseUrl}}/v1/limits
 Authorization: Bearer {{bearerToken}}
 Accept: application/json
+
+### Динамика показателей канала по суткам
+# https://api.telemetr.me/doc
+GET {{baseUrl}}/v1/channels/dynamics?
+    channelId={{channelId}}
+    &metric=views,reach,err
+    &startDate=2026-08-01
+    &endDate=2026-08-31
+Authorization: Bearer {{bearerToken}}
+Accept: application/json
+
+### Упоминания канала и пересылки его публикаций
+# kind: mention — упоминания, forward — пересылки, all — и то и другое.
+GET {{baseUrl}}/v1/channels/mentions?
+    channelId={{channelId}}
+    &kind=all
+    &limit=20
+    &offset=0
+Authorization: Bearer {{bearerToken}}
+Accept: application/json
+
+### Упоминания слова
+# groupBy: period — по суткам, channel — по каналам. Даты обязательны.
+GET {{baseUrl}}/v1/words/mentions?
+    query={{postsSearchQuery}}
+    &startDate=2026-08-01
+    &endDate=2026-08-31
+    &groupBy=period
+    &limit=50
+Authorization: Bearer {{bearerToken}}
+Accept: application/json
+
+###############################################################################
+# Площадка MAX
+#
+# MAX — отдельный продукт: свой ключ, свой пакет, свой счёт квоты. Поэтому здесь
+# другой токен — {{maxBearerToken}}, — а параметр platform не нужен вовсе:
+# площадку API берёт из ключа. Прислать его можно (для наглядности так и сделано
+# ниже), но значение обязано совпадать с площадкой ключа, иначе отказ с кодом 37.
+#
+# По MAX работают семь методов; остальные отвечают кодом 35. Что именно
+# отличается — в документации, раздел «Площадка MAX»:
+# https://api.telemetr.me/doc
+###############################################################################
+
+### MAX: остаток лимитов
+# Рассказывает про пакет площадки ключа. Квоту не тратит.
+GET {{baseUrl}}/v1/limits
+Authorization: Bearer {{maxBearerToken}}
+Accept: application/json
+
+### MAX: данные канала
+# В channelId — адрес канала MAX или его chat_id (отрицательное число).
+GET {{baseUrl}}/channels/get?
+    channelId={{maxChannelId}}
+    &platform=max
+Authorization: Bearer {{maxBearerToken}}
+Accept: application/json
+
+### MAX: статистика канала
+# Индекс цитирования, упоминания, пересылки, премиум, скоринг и рекламный охват
+# по MAX не считаются — эти поля всегда null, и это не ошибка.
+GET {{baseUrl}}/channels/stat?
+    channelId={{maxChannelId}}
+    &platform=max
+Authorization: Bearer {{maxBearerToken}}
+Accept: application/json
+
+### MAX: подписчики по суткам
+# Ряд только суточный: group=hour отвечает отказом с кодом 39.
+# Истории глубже 6 августа 2025 года нет ни у одного канала.
+GET {{baseUrl}}/channels/subscribers?
+    channelId={{maxChannelId}}
+    &platform=max
+    &group=day
+    &startDate=2026-08-01 00:00:00
+    &endDate=2026-08-31 23:59:59
+Authorization: Bearer {{maxBearerToken}}
+Accept: application/json
+
+### MAX: лента публикаций
+# Номера публикаций приходят СТРОКАМИ: в число с 53-битной точностью они не
+# помещаются. Просьба скрыть репосты или удалённые (hideForwards=1,
+# hideDeleted=1) отвечает отказом 39 — по MAX это не размечено.
+GET {{baseUrl}}/channels/posts?
+    channelId={{maxChannelId}}
+    &platform=max
+    &offset=0
+Authorization: Bearer {{maxBearerToken}}
+Accept: application/json
+
+### MAX: поиск каналов
+# Фильтров пять: query, category, subscribers_from, subscribers_to и страница
+# (limit до 50, offset до 1000). Сортировка одна — subscribers_desc.
+# Поиск подстрочный, без морфологии: «новостей» не найдёт «новости».
+GET {{baseUrl}}/v1/channels/search?
+    query={{maxChannelSearchQuery}}
+    &platform=max
+    &subscribers_from=100000
+    &limit=20
+Authorization: Bearer {{maxBearerToken}}
+Accept: application/json
+
+### MAX: справочник категорий
+# Рубрикатор у площадок общий: slug отсюда идёт в фильтр category поиска MAX.
+# Справочники языков и подборок телеграмные — по MAX они отвечают кодом 35.
+GET {{baseUrl}}/v1/channels/categories?
+    platform=max
+Authorization: Bearer {{maxBearerToken}}
+Accept: application/json
