@@ -175,7 +175,7 @@ Accept: application/json
 # площадку API берёт из ключа. Прислать его можно (для наглядности так и сделано
 # ниже), но значение обязано совпадать с площадкой ключа, иначе отказ с кодом 37.
 #
-# По MAX работают семь методов; остальные отвечают кодом 35. Что именно
+# По MAX работают двенадцать методов; остальные отвечают кодом 35. Что именно
 # отличается — в документации, раздел «Площадка MAX»:
 # https://api.telemetr.me/doc
 ###############################################################################
@@ -225,6 +225,41 @@ GET {{baseUrl}}/channels/posts?
     &offset=0
 Authorization: Bearer {{maxBearerToken}}
 Accept: application/json
+
+### MAX: лента публикаций за период
+# startDate/endDate — YYYY-MM-DD или YYYY-MM-DD HH:MM:SS, московское время; голая
+# endDate — конец суток. offset листает страницы внутри окна, total_count считается
+# по нему же. Граница глубже оплаченной истории — отказ 23. Ключом Telegram даты в
+# ленте не работают (отказ 39).
+GET {{baseUrl}}/channels/posts?
+    channelId={{maxChannelId}}
+    &platform=max
+    &startDate=2026-10-01
+    &endDate=2026-10-15
+    &offset=0
+Authorization: Bearer {{maxBearerToken}}
+Accept: application/json
+
+### MAX: одна публикация по номеру
+# postId — поле id из ленты или поиска, СТРОКОЙ: номер больше 2^53. Ответ — строка
+# той же формы, что в ленте. withViewsDynamic=1 по MAX — отказ 39.
+GET {{baseUrl}}/channels/posts/get?
+    channelId={{maxChannelId}}
+    &platform=max
+    &postId={{maxPostId}}
+Authorization: Bearer {{maxBearerToken}}
+Accept: application/json
+
+### MAX: добавить канал в сбор
+# Только публичная ссылка https://max.ru/<адрес> (или сам адрес). Канал появится в
+# /channels/get через несколько часов; до этого адрес из ответа отвечает 404.
+# Приглашения max.ru/join/… не принимаются (код 22). Не больше 100 новых заявок в
+# сутки на аккаунт (429, код 41); повтор той же ссылки потолок не тратит.
+POST {{baseUrl}}/channels/add
+Authorization: Bearer {{maxBearerToken}}
+Content-Type: application/json
+
+{"channelId": "https://max.ru/{{maxChannelId}}"}
 
 ### MAX: поиск каналов
 # Фильтров пять: query, category, subscribers_from, subscribers_to и страница
