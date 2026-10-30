@@ -93,8 +93,7 @@ Accept: application/json
 # Списочные фильтры передаются с квадратными скобками и повторяются:
 # category[]=ai&category[]=marketing. Внутрь идёт slug из справочника
 # (GET /v1/channels/categories, /v1/channels/compilations, /v1/languages/channels),
-# а не числовой id: незнакомое значение фильтр молча не применит, и в выдачу
-# попадут каналы всех категорий.
+# а не числовой id: незнакомое значение — ошибка 422 с названием параметра и значения.
 GET {{baseUrl}}/v1/channels/search?
     query={{channelSearchQuery}}
     &sort=subscribers_desc
@@ -251,9 +250,9 @@ Authorization: Bearer {{maxBearerToken}}
 Accept: application/json
 
 ### MAX: добавить канал в сбор
-# Только публичная ссылка https://max.ru/<адрес> (или сам адрес). Канал появится в
-# /channels/get через несколько часов; до этого адрес из ответа отвечает 404.
-# Приглашения max.ru/join/… не принимаются (код 22). Не больше 100 новых заявок в
+# Публичная ссылка https://max.ru/<адрес> (или сам адрес) либо приглашение в закрытый
+# канал https://max.ru/join/<токен> целиком. Канал появится в /channels/get через
+# несколько часов; до этого адрес из ответа отвечает 404. Не больше 100 новых заявок в
 # сутки на аккаунт (429, код 41); повтор той же ссылки потолок не тратит.
 POST {{baseUrl}}/channels/add
 Authorization: Bearer {{maxBearerToken}}
@@ -263,8 +262,8 @@ Content-Type: application/json
 
 ### MAX: поиск каналов
 # Фильтров пять: query, category, subscribers_from, subscribers_to и страница
-# (limit до 50, offset до 1000). Сортировка одна — subscribers_desc.
-# Поиск подстрочный, без морфологии: «новостей» не найдёт «новости».
+# (limit до 100, offset до 10 000). Сортировок две — subscribers_desc и subscribers_asc.
+# Поиск полнотекстовый, как у Telegram: «новостей» найдёт «новости»; запрос до 100 слов.
 GET {{baseUrl}}/v1/channels/search?
     query={{maxChannelSearchQuery}}
     &platform=max
